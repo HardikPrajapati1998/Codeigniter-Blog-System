@@ -1,0 +1,208 @@
+<?php echo validation_errors(); ?>
+
+ <?php echo form_open(); ?> 
+<form id="fupForm" method="POST" >
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<h1 class="text-center"><?= $title; ?></h1>
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" class="form-control" name="name"  placeholder="Name">
+			</div>
+			<div class="form-group">
+				<label>Zipcode</label>
+				<input type="text" class="form-control" name="zipcode" placeholder="Zipcode">
+			</div>
+			<div class="form-group">
+				<label>Email</label>
+				<input type="email" class="form-control" name="email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<label>Username</label>
+				<input type="text" class="form-control" name="username" placeholder="Username">
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" name="password" placeholder="Password">
+			</div>
+			<div class="form-group">
+				<label>Confirm Password</label>
+				<input type="password" class="form-control" name="password2" placeholder="Confirm Password">
+			</div>
+			<button type="submit" class="btn btn-primary btn-block">Submit</button>
+		</div>
+	</div>
+	</form>
+
+	<script>
+$(document).ready(function(e){
+    // Submit form data via Ajax
+    $("#fupForm").on('submit', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: 'users/register',
+            data: new FormData(this),
+            dataType: 'json',
+            contentType: false,
+            cache: false,
+            processData:false,
+          
+			success: function(data) {
+
+if($.isEmptyObject(data.error)){
+
+  $(".alert-danger").css('display','none');
+
+  alert(data.success);
+
+}else{
+
+  $(".alert-danger").css('display','block');
+
+  $(".alert-danger").html(data.error);
+
+}
+
+}
+        });
+    });
+});
+
+            
+                  </script>
+<?php echo form_close(); ?>
+
+
+
+
+
+
+
+
+<html>
+
+  <head> 
+
+    <title>PHP Codeigniter 3 - JQuery Ajax Form Validation Example- HDTuto.com</title>
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  </head>
+
+<body> 
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-sm-8 col-sm-offset-2">
+
+        <div class="alert alert-danger" style="display:none">
+
+        </div>
+
+
+
+      <?php echo form_open('ajax-form-validation/post');?> 
+
+	  <div class="form-group">
+				<label>Name</label>
+				<input type="text" class="form-control" name="name"  placeholder="Name">
+			</div>
+			<div class="form-group">
+				<label>Zipcode</label>
+				<input type="text" class="form-control" name="zipcode" placeholder="Zipcode">
+			</div>
+			<div class="form-group">
+				<label>Email</label>
+				<input type="email" class="form-control" name="email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<label>Username</label>
+				<input type="text" class="form-control" name="username" placeholder="Username">
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" name="password" placeholder="Password">
+			</div>
+			<div class="form-group">
+				<label>Confirm Password</label>
+				<input type="password" class="form-control" name="password2" placeholder="Confirm Password">
+			</div>
+
+
+
+        <div class="form-group">
+
+          <button class="btn btn-primary btn-block btn-submit">Submit</button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  $(".btn-submit").click(function(e){
+
+      e.preventDefault();
+
+      var name = $("input[name='name']").val();
+
+      var email = $("input[name='email']").val();
+
+      var message = $("textarea[name='message']").val();
+
+      $.ajax({
+
+          url: $(this).closest('form').attr('action'),
+
+          type:$(this).closest('form').attr('method'),
+
+          dataType: "json",
+
+          data: {name:name, email:email, message:message},
+
+          success: function(data) {
+
+              if($.isEmptyObject(data.error)){
+
+                $(".alert-danger").css('display','none');
+
+                alert(data.success);
+
+              }else{
+
+                $(".alert-danger").css('display','block');
+
+                $(".alert-danger").html(data.error);
+
+              }
+
+          }
+
+      });
+
+  }); 
+
+});
+
+</script>
+
+
+
+</html>
